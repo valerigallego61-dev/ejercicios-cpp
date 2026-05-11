@@ -1,0 +1,118 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <string.h>
+
+using namespace std;
+
+char CC[15][100],Nombre[20][100];
+float notas[4][100];
+int x,y,s,n;
+
+//------------------------------------------
+void crear()
+{ 
+	system("cls");
+	cout<<"crear datos: "<<endl;
+	cout<<"================="<<endl;
+	cout<<" digite la cantidad de usuarios a ingresar: ";
+	cin>>n;
+	for(x=0;x<n;x++)
+	{
+		cout<<endl<<"digite la siguiente informacion: "<<endl;
+		cout<<" cedula: ";cin>>	CC[x];
+		cout<<" nombre: ";cin>>	Nombre[x];
+		cout<<" Nota 1 ";cin>>	notas[0][x];
+		cout<<" Nota 2 ";cin>>	notas[1][x];
+		cout<<" Nota 3  ";cin>>	notas[2][x];
+		notas[3][x]=(notas[2][x]+notas[1][x]+notas[0][x])/3;
+		cout<<" promedio : " <<notas[3][x];
+		
+	}
+	
+}
+//---------------------------------------------
+void ver()
+{//notas[nombre de la columna][posicion x];
+	system("cls");
+	cout<<"ver datos: "<<endl;
+	cout<<"================="<<endl;
+	for(x=0;x<n;x++)
+	{
+		cout<<" cedula: "<<	CC[x]<<" nombre: "<<Nombre[x];
+		cout<<",  notas"<<notas[0][x]<<","<<notas[1][x]<<" ,"<<notas[2][x];
+		cout<<" nota final" <<notas[3][x]<<endl;
+	}	
+	getch();
+}
+//--------------------------------------------
+void anexar()
+{ int n1;
+	system("cls");
+	cout<<"anexar datos: "<<endl;
+	cout<<"================="<<endl;
+	cout<<" digite la cantidad de usuarios a anexar: ";
+	cin>>n1;
+	for(x=n;x<n1+n;x++)
+	{
+		cout<<endl<<"digite la siguiente informacion: "<<endl;
+		cout<<" cedula: ";cin>>	CC[x];
+		cout<<" nombre: ";cin>>	Nombre[x];
+		cout<<" Nota 1: ";cin>>	notas[0][x];
+		cout<<" Nota 2: ";cin>>	notas[1][x];
+		cout<<" Nota 3 : ";cin>>	notas[2][x];
+		notas[3][x]=(notas[2][x]+notas[1][x]+notas[0][x])/3;
+		cout<<" promedio : " <<notas[3][x];
+		
+	}
+	n=n+n1;
+	getch();
+}
+//-------------------------------------------
+void buscar()
+{char auxCC[15];
+int validar=0;
+	system("cls");
+	cout<<"buscar datos: "<<endl;
+	cout<<"================="<<endl;
+	cout<<" ingrese la cedula a buscar: ";cin>>auxCC;
+	
+	for(x=0;x<n;x++)
+	{
+		if(strcmp(auxCC,CC[x])==0)
+		{
+		cout<<" cedula: "<<	CC[x]<<" nombre: "<<Nombre[x];
+		cout<<",  notas"<<notas[0][x]<<","<<notas[1][x]<<" ,"<<notas[2][x];
+		cout<<" nota final" <<notas[3][x]<<endl;
+		validar++;}
+	}	
+	if (validar==0)
+    {cout<<"la cedula no existe ";}
+		getch();
+}
+//-------------------------------------------
+int main()
+{int op=1,control=0;
+    while(op!=0)
+	{	system("cls");
+	 cout<<"###########MENU PRINCIPAL########"<<endl;
+	   cout<<"================================="<<endl;
+	   cout<<"<0> ...para salir"<<endl;
+	   cout<<"<1> ....para crear"<<endl;
+	   cout<<"<2> .....para ver"<<endl;
+	   cout<<"<3> .......para anexar"<<endl;
+	   cout<<"<4> ........para buscar"<<endl;
+	   cout<<"================================="<<endl;
+	   cout<<"digite la opcion que desea: "<<endl;
+	   cin>>op;
+		switch(op)
+		{
+		case 1: if(control==0){crear();control++;}break;
+		case 2: ver(); break;
+		case 3: anexar();break;
+		case 4: buscar();break;
+		
+		
+		}
+	}
+}
