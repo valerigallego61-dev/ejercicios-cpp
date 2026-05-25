@@ -1,0 +1,65 @@
+#include <iostream>
+#include <conio.h>
+#include <stdio.h>
+#include <string.h>
+using namespace std;
+
+int Mtz[6][6]={ {1,2,3,4,5,6},
+			    {7,8,9,1,2,3},
+	            {4,5,6,7,8,9},
+				{1,2,3,4,5,6},
+				{7,8,9,1,2,3},
+				{4,5,6,7,8,9}};
+
+
+int x,y,s;
+//---------------------------------------------------
+void ver()
+{
+	system("cls");
+	cout<<"datos de la Matriz "<<endl;
+	cout<<"======================"<<endl;
+	for(x=0;x<6;x++)
+	{
+		for(y=0;y<6;y++)
+		{
+			cout<<" |"<<Mtz [x][y];
+			
+		}
+		cout<<"|"<<endl;
+	}
+	//getch();
+}
+//------------------------------------------------------
+void proceso()
+	
+{int n=4;
+	system("cls");
+	cout<<endl<<endl;
+	cout<<" suma de triangulo inferior"<<endl;
+	cout<<"datos de la Matriz "<<endl;
+	cout<<"======================"<<endl;
+	s=0;
+	for(x=0;x<6;x++)
+	{  y=5;
+		while(y>n)
+		{
+			cout<<" |"<<Mtz [x][y];
+			s=s+Mtz [x][y];
+			y--;
+		}
+		cout<<"|"<<endl;
+		n--;
+	}
+	cout<<endl<<"suma es "<<s;
+	getch();
+}
+//-----------------------------------------------------------
+
+int main ()
+	
+{
+ ver();
+ proceso();
+	
+}
