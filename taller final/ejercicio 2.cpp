@@ -60,7 +60,7 @@ void proceso()
 	cout << "============================" << endl;
 	
 	for(x=0;x<10;x++)
-	{
+	{//Con el operador módulo %, que devuelve el residuo de una división:
 		if(x % 2 != 0)   // posiciones impares: 1,3,5,7,9
 		{
 			cout << "  [" << x << "]  |   " << vectorA[x] << "     |   " << vectorB[x] << endl;
