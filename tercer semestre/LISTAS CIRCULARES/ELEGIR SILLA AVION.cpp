@@ -58,6 +58,24 @@ void imprimirSilla()
 	if(P->colum<10){cout<<"0";}
 	cout<<P->colum;
 }
+//---------------------------------------------------------------
+void mostrarPasajero()
+{
+	cout<<"-------------------------------"<<endl;
+	cout<<"Identificacion:   [ "<<P->codigo<<" ]"<<endl;
+	cout<<"Nombre:           [ "<<P->nombreCompleto<<" ]"<<endl;
+	cout<<"Telefono:         [ "<<P->telefono<<" ]"<<endl;
+	cout<<"Correo:           [ "<<P->correoElectronico<<" ]"<<endl;
+	cout<<"Origen:           [ "<<P->origen<<" ]"<<endl;
+	cout<<"Destino:          [ "<<P->destino<<" ]"<<endl;
+	cout<<"Fecha:            [ "<<P->fechaVuelo<<" ]"<<endl;
+	cout<<"Hora salida:      [ "<<P->horaSalida<<" ]"<<endl;
+	cout<<"Hora llegada:     [ "<<P->horaLlegada<<" ]"<<endl;
+	cout<<"Numero de vuelo:  [ "<<P->numeroVuelo<<" ]"<<endl;
+	cout<<"Silla:            [ ";imprimirSilla();cout<<" ]"<<endl;
+	cout<<"Valor del pasaje: [ "<<P->valorPasaje<<" ]"<<endl;
+	cout<<"-------------------------------"<<endl;
+}
 //-----------------------------------------------------------------
 void crearInicio()
 {  
@@ -89,14 +107,15 @@ void crearInicio()
 	cin>>P->horaSalida;
 	cout<<" "<<endl;
 	cout<<"Código que identifica el vuelo: "<<endl;
-	cin>>P->horaLlegada;
+	cin>>P->numeroVuelo;
 	cout<<" "<<endl;
 	cout<<"Hora programada de llegada: "<<endl;
-	cin>>P->numeroVuelo;
+	cin>>P->horaLlegada;
 	cout<<" "<<endl;
 	cout<<" ELIJA SU SILLA:"<<endl;
 	cout<<" digite <s> para continuar:"<<endl;
 	cin>>continuar;
+	n=0;
 	while(n==0)
 	{
 		system("cls");
@@ -169,10 +188,10 @@ void crearFin()
 	cin>>P->horaSalida;
 	cout<<" "<<endl;
 	cout<<"Código que identifica el vuelo: "<<endl;
-	cin>>P->horaLlegada;
+	cin>>P->numeroVuelo;
 	cout<<" "<<endl;
 	cout<<"Hora programada de llegada: "<<endl;
-	cin>>P->numeroVuelo;
+	cin>>P->horaLlegada;
 	cout<<" "<<endl;
 	cout<<" ELIJA SU SILLA:"<<endl;
 	cout<<" digite <s> para continuar:"<<endl;
@@ -250,10 +269,10 @@ void anexarInicio ()
 	cin>>P->horaSalida;
 	cout<<" "<<endl;
 	cout<<"Código que identifica el vuelo: "<<endl;
-	cin>>P->horaLlegada;
+	cin>>P->numeroVuelo;
 	cout<<" "<<endl;
 	cout<<"Hora programada de llegada: "<<endl;
-	cin>>P->numeroVuelo;
+	cin>>P->horaLlegada;
 	cout<<" "<<endl;
 	cout<<" ELIJA SU SILLA:"<<endl;
 	cout<<" digite <s> para continuar:"<<endl;
@@ -331,10 +350,10 @@ void anexarFin ()
 	cin>>P->horaSalida;
 	cout<<" "<<endl;
 	cout<<"Código que identifica el vuelo: "<<endl;
-	cin>>P->horaLlegada;
+	cin>>P->numeroVuelo;
 	cout<<" "<<endl;
 	cout<<"Hora programada de llegada: "<<endl;
-	cin>>P->numeroVuelo;
+	cin>>P->horaLlegada;
 	cout<<" "<<endl;
 	cout<<" ELIJA SU SILLA:"<<endl;
 	cout<<" digite <s> para continuar:"<<endl;
@@ -385,30 +404,105 @@ void anexarFin ()
 void verInicio()
 {
 	system("cls");
-	P=cab;
-	do
-	{ 
-		cout<<"-------------------------------"<<endl;
-		cout<<"Número de identificación del pasajero: [ "<<P->codigo<<" ]"<<endl;
-		cout<<"Nombres y apellidos del pasajero:      [ "<<P->nombreCompleto<<" ]"<<endl;
-		cout<<"Número de contacto:                    [ "<<P->telefono<<" ]"<<endl;
-		cout<<"Dirección de correo del pasajero:      [ "<<P->correoElectronico<<" ]"<<endl;
-		cout<<"Ciudad desde donde inicia el vuelo:    [ "<<P->origen<<" ]"<<endl;
-		cout<<"Ciudad hacia donde se dirige el vuelo: [ "<<P->destino<<" ]"<<endl;
-		cout<<"Fecha programada del viaje:            [ "<<P->fechaVuelo<<" ]"<<endl;
-		cout<<"Hora programada de salida:             [ "<<P->horaSalida<<" ]"<<endl;
-		cout<<"Hora programada de llegada:            [ "<<P->horaLlegada<<" ]"<<endl;
-		cout<<"Código que identifica el vuelo:        [ "<<P->numeroVuelo<<" ]"<<endl;
-		cout<<"Código de identificación de la silla asignada: [";imprimirSilla();cout<<"]"<<endl;
-		cout<<"Precio pagado por el pasaje:           [ "<<P->valorPasaje<<" ]"<<endl;
-		cout<<"-------------------------------"<<endl;
-		P=P->sig;
-	} while(P!=cab);
-	
+	if(cab==NULL){cout<<"No hay pasajeros registrados"<<endl;}
+	else
+	{
+		P=cab;
+		do
+		{ 
+			mostrarPasajero();
+			P=P->sig;
+		} while(P!=cab);
+	}
 	getch();
 }
 //---------------------------------------------------------
-
+void consultarVentas()   // Modulo 6
+{
+	int vendidas=0, disponibles=0;
+	float porcentaje, total=0;
+	system("cls");
+	for(x=0;x<6;x++)
+	{
+		for(y=0;y<25;y++)
+		{
+			if(Mtz[x][y]=='X'){vendidas++;}
+			else{disponibles++;}
+		}
+	}
+	porcentaje=(vendidas*100.0)/150;
+	if(cab!=NULL)
+	{
+		P=cab;
+		do
+		{
+			total=total+P->valorPasaje;
+			P=P->sig;
+		}while(P!=cab);
+	}
+	cout<<"------ SILLAS VENDIDAS Y TOTAL RECAUDADO ------"<<endl<<endl;
+	cout<<"Sillas disponibles: "<<disponibles<<endl;
+	cout<<"Sillas vendidas: "<<vendidas<<endl;
+	cout<<"Porcentaje de ocupacion: "<<porcentaje<<" %"<<endl;
+	cout<<"Total recaudado: $"<<total<<endl;
+	getch();
+}
+//---------------------------------------------------------
+void buscarVuelo()   // Modulo 7
+{
+	int vuelo, encontrado=0;
+	system("cls");
+	if(cab==NULL){cout<<"No hay pasajeros registrados"<<endl;}
+	else
+	{
+		cout<<"Digite el numero de vuelo: ";cin>>vuelo;
+		P=cab;
+		do
+		{
+			if(P->numeroVuelo==vuelo)
+			{
+				mostrarPasajero();
+				encontrado=1;
+			}
+			P=P->sig;
+		}while(P!=cab);
+		if(encontrado==0){cout<<"No existen registros para ese vuelo"<<endl;}
+	}
+	getch();
+}
+//---------------------------------------------------------
+void buscarCedula()   // Modulo 8
+{
+	char ced[15];
+	int encontrado=0;
+	system("cls");
+	if(cab==NULL){cout<<"No hay pasajeros registrados"<<endl;}
+	else
+	{
+		cout<<"Digite la cedula: ";cin>>ced;
+		P=cab;
+		do
+		{
+			if(strcmp(P->codigo,ced)==0)
+			{
+				mostrarPasajero();
+				encontrado=1;
+			}
+			else{P=P->sig;}
+		}while(P!=cab && encontrado==0);
+		if(encontrado==0){cout<<"No se encontro el registro"<<endl;}
+	}
+	getch();
+}
+//---------------------------------------------------------
+void ventaSillas()   // Modulo 9
+{
+	anexarFin();     // pide vuelo, datos, silla, valor y enlaza el nodo
+	system("cls");
+	cout<<"----- VENTA CONFIRMADA -----"<<endl;
+	mostrarPasajero();   // P apunta al pasajero recien vendido
+	getch();
+}
 //------------------------------------------
 int main ()
 {
@@ -416,36 +510,36 @@ int main ()
 	for(x=0;x<6;x++)
 		for(y=0;y<25;y++)
 		Mtz[x][y]='.';
-	while(op!=0)
-	{
-		system("cls");
-		cout<<"-------------------------------"<<endl;
-		cout<<"-----CONTROL DE PRESTAMOS------"<<endl<<endl;
-		cout<<"-------------------------------"<<endl;
-		cout<<"<0>Para salir"<<endl;
-		cout<<"<1>CREAR POR INICIO"<<endl;
-		cout<<"<2>CREAR POR FIN"<<endl;
-		cout<<"<3>ANEXAR POR INICIO"<<endl;
-		cout<<"<4>ANEXAR POR FIN "<<endl;
-		cout<<"<5>CONSULTAR INFORMACION DE LOS PASAJEROS "<<endl;
-		cout<<"<6>CONSULTAR SILLAS VENDIDAS Y TOTAL DE RECAUDO "<<endl;
-		cout<<"<7>BUSCAR POR NUMERO DE VUELO "<<endl;
-		cout<<"<8>BUSCAR POR CEDULA "<<endl;
-		cout<<"<9>VENTA DE SILLAS DE LOS VUELOS "<<endl;
-		cout<<"---------------------------"<<endl;
-		cout<<"DIGITE LA OPCION QUE DESEA:"<<endl<<endl;
-		cin>>op;
-		switch(op)
+		while(op!=0)
 		{
-		case 1:crearInicio();break;
-		case 2:crearFin();break;
-		case 3:anexarInicio();break;
-		case 4:anexarFin();break;
-		case 5:verInicio();break;
-//		case 6: buscar();break;
-//		case 7: modificar();break;
-//		case 8: estadistica();break;
+			system("cls");
+			cout<<"-------------------------------"<<endl;
+			cout<<"-----CONTROL DE PRESTAMOS------"<<endl<<endl;
+			cout<<"-------------------------------"<<endl;
+			cout<<"<0>Para salir"<<endl;
+			cout<<"<1>CREAR POR INICIO"<<endl;
+			cout<<"<2>CREAR POR FIN"<<endl;
+			cout<<"<3>ANEXAR POR INICIO"<<endl;
+			cout<<"<4>ANEXAR POR FIN "<<endl;
+			cout<<"<5>CONSULTAR INFORMACION DE LOS PASAJEROS "<<endl;
+			cout<<"<6>CONSULTAR SILLAS VENDIDAS Y TOTAL DE RECAUDO "<<endl;
+			cout<<"<7>BUSCAR POR NUMERO DE VUELO "<<endl;
+			cout<<"<8>BUSCAR POR CEDULA "<<endl;
+			cout<<"<9>VENTA DE SILLAS DE LOS VUELOS "<<endl;
+			cout<<"---------------------------"<<endl;
+			cout<<"DIGITE LA OPCION QUE DESEA:"<<endl<<endl;
+			cin>>op;
+			switch(op)
+			{
+			case 1:crearInicio();break;
+			case 2:crearFin();break;
+			case 3:anexarInicio();break;
+			case 4:anexarFin();break;
+			case 5:verInicio();break;
+			case 6:consultarVentas();break;
+			case 7:buscarVuelo();break;
+			case 8:buscarCedula();break;
+			case 9:ventaSillas();break;
+			}
 		}
-	}
 }
-
